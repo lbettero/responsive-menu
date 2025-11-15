@@ -1,0 +1,360 @@
+[
+  {
+    "title": "Portal Arcano",
+    "url": "#",
+    "tags": ["inicio", "principal", "dashboard", "home", "arcano"]
+  },
+  {
+    "title": "Monitoreo",
+    "tags": ["monitoreo", "tiempo-real", "estado", "seguimiento", "unicornios"],
+    "children": [
+      { "title": "Visión global", "url": "#", "tags": ["resumen", "overview", "monitoreo"] },
+      { "title": "Mapa de criaturas", "url": "#", "tags": ["mapa", "criaturas", "geolocalizacion", "tracking"] },
+      {
+        "title": "Estado vital de los unicornios",
+        "tags": ["estado-vital", "salud", "monitoreo", "biometria"],
+        "children": [
+          { "title": "Energía mística", "url": "#", "tags": ["energia", "magia", "vitalidad"] },
+          { "title": "Carga cibernética", "url": "#", "tags": ["bateria", "cyber", "carga"] },
+          { "title": "Flujo de vibración astral", "url": "#", "tags": ["vibracion", "astral", "ruido"] }
+        ]
+      },
+      {
+        "title": "Alertas activas",
+        "tags": ["alertas", "alarmas", "monitoreo"],
+        "children": [
+          { "title": "Alertas por energía baja", "url": "#", "tags": ["energia", "baja", "umbral"] },
+          { "title": "Alteraciones de aura", "url": "#", "tags": ["aura", "alerta", "magia"] },
+          { "title": "Inestabilidad biomecánica", "url": "#", "tags": ["biomecanica", "riesgo", "alerta"] },
+          { "title": "Alertas críticas", "url": "#", "tags": ["criticidad", "prioridad", "peligro"] }
+        ]
+      },
+      { "title": "Rendimiento místico en tiempo real", "url": "#", "tags": ["rendimiento", "tiempo-real", "kpi", "magia"] },
+      { "title": "Historial de poder arcano", "url": "#", "tags": ["historico", "energia", "tendencias"] }
+    ]
+  },
+  {
+    "title": "Criaturas",
+    "tags": ["criaturas", "inventario", "unicornios", "mantenimiento"],
+    "children": [
+      {
+        "title": "Por especie",
+        "tags": ["clasificacion", "especies", "criaturas"],
+        "children": [
+          { "title": "Equinos", "url": "#", "tags": ["equinos", "unicornios", "tierra"] },
+          { "title": "Felinos", "url": "#", "tags": ["felinos", "quimeras", "agilidad"] },
+          { "title": "Alados", "url": "#", "tags": ["alados", "pegaso", "cielo"] },
+          { "title": "Subacuáticos", "url": "#", "tags": ["subacuaticos", "sirenas", "oceano"] }
+        ]
+      },
+      {
+        "title": "Por linaje",
+        "tags": ["linaje", "familias", "origen"],
+        "children": [
+          { "title": "Línea Solar", "url": "#", "tags": ["solar", "luz", "calor"] },
+          { "title": "Línea Lunar", "url": "#", "tags": ["lunar", "noche", "sombra"] },
+          { "title": "Línea Tempestad", "url": "#", "tags": ["tormenta", "trueno", "carga-electrica"] }
+        ]
+      },
+      {
+        "title": "Por nivel de poder",
+        "tags": ["poder", "clasificacion", "energia"],
+        "children": [
+          { "title": "Clase Bruma", "url": "#", "tags": ["bruma", "bajo", "novato"] },
+          { "title": "Clase Prisma", "url": "#", "tags": ["prisma", "medio", "raro"] },
+          { "title": "Clase Estelar", "url": "#", "tags": ["estelar", "alto", "legendario"] }
+        ]
+      },
+      {
+        "title": "Por hábitat",
+        "tags": ["habitat", "ambiente", "ubicacion"],
+        "children": [
+          { "title": "Bosques encantados", "url": "#", "tags": ["bosque", "naturaleza", "tierra"] },
+          { "title": "Cavernas arcánicas", "url": "#", "tags": ["cueva", "magia", "oscuridad"] },
+          { "title": "Reinos submarinos", "url": "#", "tags": ["agua", "oceano", "mar"] }
+        ]
+      },
+      {
+        "title": "Historial de mantenimiento",
+        "tags": ["mantenimiento", "historial", "cuidados"],
+        "children": [
+          { "title": "Últimos cuidados", "url": "#", "tags": ["intervenciones", "reciente", "cuidado"] },
+          { "title": "Próximas armonizaciones", "url": "#", "tags": ["revisiones", "planificacion"] },
+          { "title": "Esencias y componentes usados", "url": "#", "tags": ["esencias", "materiales", "magia"] }
+        ]
+      }
+    ]
+  },
+  {
+    "title": "Reportes",
+    "tags": ["reportes", "informes", "exportar", "pdf", "excel"],
+    "children": [
+      {
+        "title": "Generar informe",
+        "tags": ["generar", "informe"],
+        "children": [
+          { "title": "Informe diario del reino", "url": "#", "tags": ["diario", "resumen"] },
+          { "title": "Informe semanal de criaturas", "url": "#", "tags": ["semanal", "criaturas"] },
+          { "title": "Informe lunar mensual", "url": "#", "tags": ["mensual", "lunar"] }
+        ]
+      },
+      { "title": "Historial de reportes", "url": "#", "tags": ["historial", "reportes"] },
+      {
+        "title": "Reportes personalizados",
+        "tags": ["personalizados", "filtros"],
+        "children": [
+          { "title": "Por criatura", "url": "#", "tags": ["criatura", "filtro"] },
+          { "title": "Por guardián", "url": "#", "tags": ["guardian", "responsable"] },
+          { "title": "Por ciclo temporal", "url": "#", "tags": ["periodo", "tiempo"] }
+        ]
+      },
+      {
+        "title": "Exportar datos",
+        "tags": ["exportar", "datos"],
+        "children": [
+          { "title": "CSV mágico", "url": "#", "tags": ["csv"] },
+          { "title": "PDF encantado", "url": "#", "tags": ["pdf"] },
+          { "title": "Excel arcano", "url": "#", "tags": ["excel"] }
+        ]
+      },
+      {
+        "title": "Reportes automáticos",
+        "tags": ["automaticos", "programacion"],
+        "children": [
+          { "title": "Programación de envío", "url": "#", "tags": ["programacion"] },
+          { "title": "Destinatarios", "url": "#", "tags": ["destinatarios"] }
+        ]
+      },
+      { "title": "Plantillas de informe", "url": "#", "tags": ["plantillas", "templates"] }
+    ]
+  },
+  {
+    "title": "Estadísticas",
+    "tags": ["estadisticas", "kpi", "indicadores", "analitica"],
+    "children": [
+      {
+        "title": "Rendimiento de criaturas",
+        "tags": ["rendimiento", "criaturas"],
+        "children": [
+          { "title": "Eficiencia mágica", "url": "#", "tags": ["eficiencia", "magia"] },
+          { "title": "Tiempo activo", "url": "#", "tags": ["uptime"] },
+          { "title": "Rupturas de hechizo", "url": "#", "tags": ["fallos", "hechizo"] }
+        ]
+      },
+      {
+        "title": "Disponibilidad del reino",
+        "tags": ["disponibilidad", "reino"],
+        "children": [
+          { "title": "Por criatura", "url": "#", "tags": ["criatura"] },
+          { "title": "Por territorio", "url": "#", "tags": ["zona", "territorio"] },
+          { "title": "Promedios arcanos", "url": "#", "tags": ["promedios"] }
+        ]
+      },
+      {
+        "title": "Predicción de mantenimiento",
+        "tags": ["predictivo", "ia", "mantenimiento"],
+        "children": [
+          { "title": "Frecuencia de desmaterialización", "url": "#", "tags": ["fallos", "frecuencia"] },
+          { "title": "Vida útil estimada", "url": "#", "tags": ["vida", "estimacion"] },
+          { "title": "Alertas anticipadas", "url": "#", "tags": ["alertas", "predictivo"] }
+        ]
+      },
+      {
+        "title": "Estadísticas de integración",
+        "tags": ["integracion", "conexion"],
+        "children": [
+          { "title": "Estado de conexión astral", "url": "#", "tags": ["conexion", "astral"] },
+          { "title": "Sincronización dimensional", "url": "#", "tags": ["sincronizacion"] },
+          { "title": "Errores de portal", "url": "#", "tags": ["errores", "portal"] }
+        ]
+      },
+      {
+        "title": "Comparativas de linajes",
+        "tags": ["comparativas", "linajes"],
+        "children": [
+          { "title": "Rendimiento entre especies", "url": "#", "tags": ["comparativa"] },
+          { "title": "Consumo energético", "url": "#", "tags": ["energia"] },
+          { "title": "Desviaciones mágicas", "url": "#", "tags": ["anomalias"] }
+        ]
+      },
+      {
+        "title": "Eficiencia global",
+        "tags": ["eficiencia", "oee", "mejora"],
+        "children": [
+          { "title": "Pérdidas de poder", "url": "#", "tags": ["perdidas"] },
+          { "title": "Factores externos", "url": "#", "tags": ["externos"] },
+          { "title": "Mejora continua", "url": "#", "tags": ["kaizen", "optimizacion"] }
+        ]
+      }
+    ]
+  },
+  {
+    "title": "Guardianes",
+    "tags": ["usuarios", "guardianes", "permisos"],
+    "children": [
+      { "title": "Listar guardianes", "url": "#", "tags": ["listar", "guardianes"] },
+      { "title": "Gestionar guardianes", "url": "#", "tags": ["gestionar", "crud"] },
+      { "title": "Nuevo guardián", "url": "#", "tags": ["nuevo", "alta"] },
+      { "title": "Nuevo clan de guardianes", "url": "#", "tags": ["grupo", "alta"] },
+      { "title": "Gestionar clanes", "url": "#", "tags": ["gestionar", "clanes"] },
+      { "title": "Roles y permisos mágicos", "url": "#", "tags": ["roles", "permisos"] }
+    ]
+  },
+  {
+    "title": "Configuraciones",
+    "tags": ["configuraciones", "ajustes"],
+    "children": [
+      {
+        "title": "Parámetros del sistema arcano",
+        "tags": ["parametros", "sistema"],
+        "children": [
+          {
+            "title": "Conectividad dimensional",
+            "tags": ["conectividad", "portales"],
+            "children": [
+              { "title": "Portales y puntos de anclaje", "url": "#", "tags": ["portales", "anclaje"] },
+              { "title": "Claves de acceso rúnico", "url": "#", "tags": ["claves", "runas"] },
+              { "title": "Intervalos de sincronización", "url": "#", "tags": ["intervalos"] }
+            ]
+          },
+          {
+            "title": "Gestión de registros",
+            "tags": ["logs", "registro"],
+            "children": [
+              { "title": "Registro de eventos arcánicos", "url": "#", "tags": ["eventos", "arcano"] },
+              { "title": "Nivel de detalle mágico", "url": "#", "tags": ["nivel-detalle"] }
+            ]
+          },
+          {
+            "title": "Sincronización de planos",
+            "tags": ["sincronizacion", "multiverso"],
+            "children": [
+              { "title": "Frecuencia de resonancia", "url": "#", "tags": ["frecuencia"] },
+              { "title": "Latencia permitida", "url": "#", "tags": ["latencia"] },
+              { "title": "Reintentos automáticos", "url": "#", "tags": ["reintentos"] }
+            ]
+          },
+          {
+            "title": "Notificaciones del oráculo",
+            "tags": ["notificaciones", "oraculo"],
+            "children": [
+              { "title": "Configurar avisos", "url": "#", "tags": ["configurar"] },
+              { "title": "Ver notificaciones", "url": "#", "tags": ["listar"] },
+              { "title": "Alertas divinas", "url": "#", "tags": ["alertas"] },
+              { "title": "Historial de profecías", "url": "#", "tags": ["historial"] }
+            ]
+          }
+        ]
+      },
+      {
+        "title": "Integraciones",
+        "tags": ["integraciones", "api"],
+        "children": [
+          { "title": "Importar criaturas externas", "url": "#", "tags": ["importar"] },
+          { "title": "Enviar datos a reinos aliados", "url": "#", "tags": ["exportar"] },
+          { "title": "Historial de intercambios", "url": "#", "tags": ["historial"] },
+          { "title": "Configurar vínculos mágicos", "url": "#", "tags": ["endpoints"] }
+        ]
+      },
+      {
+        "title": "Parada de módulos",
+        "tags": ["parada", "modulos"],
+        "children": [
+          { "title": "Agendar mantenimiento arcano", "url": "#", "tags": ["mantenimiento"] },
+          { "title": "Suspender módulo temporalmente", "url": "#", "tags": ["suspender"] },
+          { "title": "Reactivar módulo", "url": "#", "tags": ["reactivar"] }
+        ]
+      },
+      {
+        "title": "Alarmas y notificaciones",
+        "tags": ["alarmas", "umbrales"],
+        "children": [
+          { "title": "Umbrales mágicos", "url": "#", "tags": ["umbrales"] },
+          { "title": "Tipos de aviso", "url": "#", "tags": ["tipos"] },
+          { "title": "Contactos de emergencia", "url": "#", "tags": ["contactos"] }
+        ]
+      },
+      {
+        "title": "Preferencias de interfaz",
+        "tags": ["preferencias", "ui"],
+        "children": [
+          { "title": "Tema visual", "url": "#", "tags": ["tema", "oscuro", "claro"] },
+          { "title": "Privacidad mística", "url": "#", "tags": ["privacidad"] }
+        ]
+      }
+    ]
+  },
+  {
+    "title": "Registros del Reino",
+    "tags": ["registros", "auditoria"],
+    "children": [
+      { "title": "Eventos recientes", "url": "#", "tags": ["eventos", "recientes"] },
+      { "title": "Errores y alertas", "url": "#", "tags": ["errores", "alertas"] },
+      {
+        "title": "Auditoría arcana",
+        "tags": ["auditoria", "trazabilidad"],
+        "children": [
+          { "title": "Accesos de guardianes", "url": "#", "tags": ["accesos"] },
+          { "title": "Cambios de configuración", "url": "#", "tags": ["cambios"] },
+          { "title": "Rituales críticos", "url": "#", "tags": ["criticos"] }
+        ]
+      }
+    ]
+  },
+  {
+    "title": "Soporte",
+    "tags": ["soporte", "ayuda"],
+    "children": [
+      {
+        "title": "Centro de ayuda",
+        "tags": ["ayuda"],
+        "children": [
+          { "title": "Preguntas frecuentes", "url": "#", "tags": ["faq"] },
+          { "title": "Guías de invocación", "url": "#", "tags": ["guias"] },
+          { "title": "Solución de problemas mágicos", "url": "#", "tags": ["problemas"] }
+        ]
+      },
+      {
+        "title": "Documentación técnica",
+        "tags": ["documentacion"],
+        "children": [
+          { "title": "Manual del domador de unicornios", "url": "#", "tags": ["manual"] },
+          { "title": "Especificaciones del núcleo cibernético", "url": "#", "tags": ["api", "especificaciones"] },
+          { "title": "Registro de versiones", "url": "#", "tags": ["changelog"] }
+        ]
+      },
+      {
+        "title": "Contacto y asistencia",
+        "tags": ["contacto"],
+        "children": [
+          { "title": "Enviar solicitud de soporte", "url": "#", "tags": ["ticket"] },
+          { "title": "Chat con sabios arcanos", "url": "#", "tags": ["chat"] },
+          { "title": "Seguimiento de rituales enviados", "url": "#", "tags": ["seguimiento"] }
+        ]
+      },
+      {
+        "title": "Actualizaciones de magia",
+        "tags": ["actualizaciones"],
+        "children": [
+          { "title": "Notas de actualización", "url": "#", "tags": ["notas"] },
+          { "title": "Historial de versiones", "url": "#", "tags": ["historial"] },
+          { "title": "Estado del servidor mágico", "url": "#", "tags": ["estado"] }
+        ]
+      },
+      {
+        "title": "Oráculo virtual",
+        "tags": ["asistente", "chatbot"],
+        "children": [
+          { "title": "Consultar información arcana", "url": "#", "tags": ["consulta"] },
+          { "title": "Obtener ayuda inmediata", "url": "#", "tags": ["ayuda"] },
+          { "title": "Derivar casos a un mago superior", "url": "#", "tags": ["derivar"] }
+        ]
+      }
+    ]
+  },
+  {
+    "title": "Cerrar portal",
+    "url": "#",
+    "tags": ["salir", "logout", "cerrar-portal"]
+  }
+]

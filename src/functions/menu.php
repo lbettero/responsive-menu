@@ -5,165 +5,178 @@
  */
 function getMenuData(string $path): array
 {
-    if (!file_exists($path)) return ["error" => "Archivo menu.json no encontrado."];
-    $json = file_get_contents($path);
-    $data = json_decode($json, true);
-    if (json_last_error() !== JSON_ERROR_NONE) return ["error" => "Error al decodificar el archivo JSON."];
-    return $data;
+	if (!file_exists($path)) return ["error" => "Archivo menu.json no encontrado."];
+	$json = file_get_contents($path);
+	$data = json_decode($json, true);
+	if (json_last_error() !== JSON_ERROR_NONE) return ["error" => "Error al decodificar el archivo JSON."];
+	return $data;
 }
 
 /**
- * Renderiza el menú de escritorio (versión para pantallas grandes).
- * 
- * Reglas de disposición:
- *  - Nivel 1: visible en línea, en la barra principal.
- *  - Nivel 2: desplegable debajo del elemento padre.
- *  - Nivel 3 o superior: aparece al lado derecho del elemento padre.
- */
-function renderDesktopMenu(array $nodes, int $depth = 0): void
-{
-    if (empty($nodes)) return;
-
-    // Clases base del contenedor <ul> según el nivel
-    $ulClass = $depth === 0
-        ? 'flex items-center gap-2'
-        : 'absolute z-20 min-w-52 rounded-lg border bg-white/95 shadow-lg backdrop-blur text-sm p-2';
-
-    // Posición del submenú según el nivel
-    if ($depth === 0) {
-        $position = '';                     // Nivel 1: en línea
-    } elseif ($depth === 1) {
-        $position = 'mt-1';                 // Nivel 2: debajo del padre
-    } else {
-        $position = 'top-0 left-full ml-1'; // Nivel 3+: al lado derecho
-    }
-
-    echo "<ul class=\"$ulClass $position\">\n";
-
-    // Itera cada nodo (ítem de menú)
-    foreach ($nodes as $i => $node) {
-        $title = htmlspecialchars($node['title'] ?? '—', ENT_QUOTES, 'UTF-8');
-        $url   = htmlspecialchars($node['url'] ?? '#', ENT_QUOTES, 'UTF-8');
-        $hasChildren = !empty($node['children']) && is_array($node['children']);
-        $id = "submenu-$depth-$i";
-
-        // Ítems sin hijos → enlace directo
-        if (!$hasChildren) {
-            $pad = $depth === 0 ? 'px-3 py-2' : 'px-2 py-1.5';
-            echo "<li><a href=\"$url\" class=\"block rounded-md hover:underline $pad\">$title</a></li>\n";
-        } 
-        // Ítems con hijos → genera submenú
-        else {
-            $pad = $depth === 0 ? 'px-3 py-2' : 'px-2 py-1.5';
-
-            echo "<li class=\"relative\" data-submenu=\"$id\">\n";
-            echo "  <div class=\"inline-flex items-center gap-2 rounded-md cursor-pointer $pad hover:underline submenu-btn\" data-target=\"$id\">\n";
-            echo "    <span>$title</span>\n";
-            echo "    <svg class=\"size-4 transition-transform\" viewBox=\"0 0 20 20\" fill=\"currentColor\" aria-hidden=\"true\">\n";
-            echo "      <path fill-rule=\"evenodd\" d=\"M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.08 1.04l-4.25 4.25a.75.75 0 01-1.08 0L5.21 8.27a.75.75 0 01.02-1.06z\" clip-rule=\"evenodd\"/>\n";
-            echo "    </svg>\n";
-            echo "  </div>\n";
-
-            // Submenús: nivel 2 debajo, nivel 3+ al lado derecho
-            if ($depth === 0) {
-                echo "  <div id=\"$id\" class=\"absolute hidden submenu-block mt-1 left-0\">\n";
-            } else {
-                echo "  <div id=\"$id\" class=\"absolute hidden submenu-block top-0 left-full ml-1\">\n";
-            }
-
-            // Llamada recursiva para los hijos
-            renderDesktopMenu($node['children'], $depth + 1);
-            echo "  </div>\n";
-            echo "</li>\n";
-        }
-    }
-
-    echo "</ul>\n";
-}
-
-/**
- * Renderiza el menú móvil utilizando <details> y <summary>.
- * 
- * Permite un comportamiento nativo de apertura/cierre sin necesidad de JS adicional.
- */
-function renderMobileMenu(array $nodes): void
-{
-    if (empty($nodes)) return;
-
-    echo "<ul class=\"px-3 space-y-1\">\n";
-    foreach ($nodes as $node) {
-        $title = htmlspecialchars($node['title'] ?? '—', ENT_QUOTES, 'UTF-8');
-        $url   = htmlspecialchars($node['url'] ?? '#', ENT_QUOTES, 'UTF-8');
-        $hasChildren = !empty($node['children']) && is_array($node['children']);
-
-        // Enlace simple
-        if (!$hasChildren) {
-            echo "<li><a href=\"$url\" class=\"block rounded-md px-3 py-2 hover:bg-gray-100\">$title</a></li>\n";
-        } 
-        // Sección con submenú
-        else {
-            echo "<li>\n";
-            echo "  <details class=\"group\">\n";
-            echo "    <summary class=\"flex cursor-pointer list-none items-center justify-between rounded-md px-3 py-2 hover:bg-gray-100\">\n";
-            echo "      <span>$title</span>\n";
-            echo "      <svg class=\"size-4 transition-transform group-open:rotate-180\" viewBox=\"0 0 20 20\" fill=\"currentColor\">\n";
-            echo "        <path fill-rule=\"evenodd\" d=\"M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.08 1.04l-4.25 4.25a.75.75 0 01-1.08 0L5.21 8.27a.75.75 0 01.02-1.06z\" clip-rule=\"evenodd\"/>\n";
-            echo "      </svg>\n";
-            echo "    </summary>\n";
-            echo "    <div class=\"pl-4 border-l ml-2 mt-1\">\n";
-            renderMobileMenu($node['children']);
-            echo "    </div>\n";
-            echo "  </details>\n";
-            echo "</li>\n";
-        }
-    }
-    echo "</ul>\n";
-}
-
-/**
- * Función principal que imprime el menú completo (versión escritorio + móvil).
- * 
- * Lee los datos desde el archivo menu.json, genera la estructura HTML
- * y aplica mensajes de error en caso de fallos.
+ * Función principal que imprime el menú completo con Alpine.js.
  */
 function renderMenu(): void
 {
-    // Ruta al archivo JSON del menú
-    $menuPath = __DIR__ . '/../../public/assets/data/menu.json';
-    $menuData = getMenuData($menuPath);
-    $menuError = $menuData['error'] ?? null;
-    $items = !isset($menuData['error']) ? $menuData : [];
+	$menuPath = __DIR__ . '/../../assets/data/menu.json';
+	$menuData = getMenuData($menuPath);
+	$menuError = $menuData['error'] ?? null;
+	$items = !isset($menuData['error']) ? $menuData : [];
+	$menuJSON = htmlspecialchars(json_encode($items, JSON_UNESCAPED_UNICODE), ENT_QUOTES, 'UTF-8');
+	?>
 
-    // Contenedor principal del menú
-    echo '<nav class="flex items-center justify-between py-4">';
+	<!-- ====================== BLOQUE PRINCIPAL DEL MENÚ ====================== -->
+	<nav 
+		x-data="menuComponent(<?= "'$menuJSON'" ?>)" 
+		x-init="init()" 
+		class="flex flex-col md:flex-row items-center justify-between py-1 gap-3">
 
-    // Menú de escritorio
-    echo '  <div class="hidden md:block">';
-    if ($menuError) {
-        echo '<span class="text-sm text-red-600 italic" role="alert">Error al cargar el menú</span>';
-    } elseif (empty($items)) {
-        echo '<span class="text-sm text-gray-500 italic">Sin elementos de menú</span>';
-    } else {
-        renderDesktopMenu($items);
-    }
-    echo '  </div>';
+		<!-- ===== Menú de escritorio (vista horizontal para pantallas grandes) ===== -->
+		<div class="hidden md:block w-full mt-4" role="menubar">
+			<template x-for="(item, i) in filteredMenu" :key="i">
+				<div 
+					class="inline-block relative group mx-1" 
+					@mouseenter="open = i" 
+					@mouseleave="open = null">
 
-    // Botón para abrir/cerrar el menú móvil
-    echo '  <button id="btn-mobile" class="md:hidden inline-flex items-center rounded-md px-3 py-2" aria-controls="mobileMenu" aria-expanded="false" aria-label="Abrir menú principal" type="button">';
-    echo '    <svg xmlns="http://www.w3.org/2000/svg" class="size-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">';
-    echo '      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3.75 6.75h16.5M3.75 12h16.5M3.75 17.25h16.5"/>';
-    echo '    </svg>';
-    echo '  </button>';
-    echo '</nav>';
+					<!-- Botón principal del primer nivel -->
+					<button 
+						class="px-3 py-2 rounded-md hover:bg-gray-100 transition"
+						:class="{'bg-yellow-100': filter && startsInTokens(tokenize(item.title), normalize(filter))}" 
+						:aria-expanded="open === i"
+						x-html="highlight(item.title)">
+					</button>
 
-    // Panel desplegable del menú móvil
-    echo '<div id="mobileMenu" class="md:hidden border-t py-3 hidden" role="region" aria-label="Menú principal">';
-    if ($menuError) {
-        echo '<p class="px-3 text-sm text-red-600 italic" role="alert">Error al cargar el menú</p>';
-    } elseif (empty($items)) {
-        echo '<p class="px-3 text-sm text-gray-500 italic">Sin elementos de menú</p>';
-    } else {
-        renderMobileMenu($items);
-    }
-    echo '</div>';
+					<!-- ===== Submenú de segundo nivel ===== -->
+					<template x-if="item.children">
+						<ul
+							class="absolute left-0 mt-1 bg-white/95 border rounded-md shadow-md w-52 z-20 break-words whitespace-normal"
+							x-show="open === i || (search && (item.children?.length))"
+							x-transition
+							@mouseenter="open = i" 
+							@mouseleave="open = null">
+							
+							<template x-for="(child, j) in item.children" :key="child.title">
+								<li 
+									class="relative" 
+									x-data="{ openChild: null }" 
+									@mouseenter="openChild = j" 
+									@mouseleave="openChild = null">
+
+									<!-- Enlace o botón del segundo nivel -->
+									<a 
+										:href="child.url || '#'" 
+										class="block px-3 py-2 hover:bg-gray-50" 
+										x-html="highlight(child.title)">
+									</a>
+
+									<!-- ===== Subnivel (nivel 3 o más) ===== -->
+									<template x-if="child.children">
+										<ul 
+											x-data="{ openLeft: false }"
+											x-init="$watch('openChild', value => {
+												if (value === j) {
+													$nextTick(() => {
+														const rect = $el.getBoundingClientRect();
+														openLeft = (window.innerWidth - rect.right) < 200;
+													});
+												}
+											})"
+											:class="openLeft
+												? 'absolute top-0 right-full -mr-2 bg-white/95 border rounded-md shadow-md w-52 z-30 break-words whitespace-normal'
+												: 'absolute top-0 left-full -ml-2 bg-white/95 border rounded-md shadow-md w-52 z-30 break-words whitespace-normal'"
+											x-show="openChild === j || (search && (child.children?.length))"
+											x-transition>
+											
+											<template x-for="grandchild in child.children" :key="grandchild.title">
+												<li>
+													<a 
+														:href="grandchild.url || '#'" 
+														class="block px-3 py-2 hover:bg-gray-50" 
+														x-html="highlight(grandchild.title)">
+													</a>
+												</li>
+											</template>
+										</ul>
+									</template>
+								</li>
+							</template>
+						</ul>
+					</template>
+				</div>
+			</template>
+		</div>
+
+		<!-- ===== Campo de búsqueda (filtra dinámicamente el menú) ===== -->
+		<div class="w-full md:w-1/3 px-3">
+			<input 
+				type="search" 
+				x-model.debounce.250ms="search" 
+				placeholder="Buscar..." 
+				class="w-full min-w-[200px] border rounded-md px-3 py-2 text-sm"/>
+		</div>
+
+		<!-- ===== Menú móvil (estructura colapsable para pantallas pequeñas) ===== -->
+		<div class="md:hidden w-full border-t pt-3 space-y-2" role="menu">
+			<template x-for="(item, i) in filteredMenu" :key="i">
+				<details class="group">
+					<!-- Primer nivel del menú móvil -->
+					<summary class="flex justify-between items-center px-3 py-2 cursor-pointer hover:bg-gray-100">
+						<span x-html="highlight(item.title)"></span>
+						<svg class="size-4 transition-transform group-open:rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+						</svg>
+					</summary>
+
+					<!-- Segundo nivel dentro del menú móvil -->
+					<div class="pl-4 border-l ml-2 mt-1">
+						<template x-if="item.children">
+							<template x-for="(child, j) in item.children" :key="child.title">
+								<div>
+									<!-- Enlace simple sin más niveles -->
+									<template x-if="!child.children">
+										<a 
+											:href="child.url || '#'" 
+											class="block px-3 py-1 hover:bg-gray-50 text-sm" 
+											x-html="highlight(child.title)">
+										</a>
+									</template>
+
+									<!-- Subnivel dentro del menú móvil -->
+									<template x-if="child.children">
+										<details class="group pl-3 border-l ml-2 mt-1">
+											<summary class="flex justify-between items-center px-3 py-1 cursor-pointer hover:bg-gray-50 text-sm">
+												<span x-html="highlight(child.title)"></span>
+												<svg class="size-3 transition-transform group-open:rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+													<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+												</svg>
+											</summary>
+
+											<!-- Tercer nivel del menú móvil -->
+											<div class="pl-3 border-l ml-2 mt-1">
+												<template x-for="grandchild in child.children" :key="grandchild.title">
+													<a 
+														:href="grandchild.url || '#'" 
+														class="block px-3 py-1 hover:bg-gray-50 text-sm" 
+														x-html="highlight(grandchild.title)">
+													</a>
+												</template>
+											</div>
+										</details>
+									</template>
+								</div>
+							</template>
+						</template>
+					</div>
+				</details>
+			</template>
+
+			<!-- Mensaje mostrado cuando no hay resultados de búsqueda -->
+			<div x-show="!filteredMenu.length" class="text-sm text-gray-500 px-3 py-2">
+				Sin resultados para <strong x-text="search"></strong>.
+			</div>
+		</div>
+	</nav>
+
+	<?php
 }
+?>
