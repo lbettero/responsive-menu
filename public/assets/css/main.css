@@ -1,0 +1,16 @@
+:root{
+  --brand-navy:#1E2C47;
+  --brand-teal:#0A89A8;
+  --brand-teal-dark:#087691;
+  --brand-light:#FFFFFF;
+}
+
+.bg-brand-navy{ background-color: var(--brand-navy); }
+.bg-brand-light{ background-color: var(--brand-light); }
+.text-brand-teal{ color: var(--brand-teal); }
+.link-brand{ color: var(--brand-teal); }
+.link-brand:hover{ color: var(--brand-teal-dark); }
+.border-brand-teal{ border-color: var(--brand-teal); }
+
+body{ background-color: var(--brand-light); color:var(--brand-navy); }
+header,footer{ background-color: var(--brand-navy); color:var(--brand-light); }
