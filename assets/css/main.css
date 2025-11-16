@@ -5,7 +5,7 @@
 	--brand-light: #FFFFFF;
 }
 
-/* Paleta base */
+/* Base palette */
 .bg-brand-navy { background-color: var(--brand-navy); }
 .bg-brand-light { background-color: var(--brand-light); }
 .bg-brand-teal { background-color: var(--brand-teal); }
@@ -15,7 +15,7 @@
 .link-brand:hover { color: var(--brand-teal-dark); }
 .border-brand-teal { border-color: var(--brand-teal); }
 
-/* Tipografía global */
+/* Global typography */
 body {
 	background-color: var(--brand-light);
 	color: var(--brand-navy);
@@ -32,7 +32,7 @@ button, input, nav, a {
 	font-family: inherit;
 }
 
-/* Encabezado y footer con texto claro */
+/* Header and footer with light text */
 header,
 footer {
 	color: var(--brand-light);
@@ -76,11 +76,52 @@ nav a:hover {
 	color: var(--brand-teal-dark);
 }
 
-/* Botones */
+/* Buttons */
 button.bg-brand-teal:hover {
 	background-color: var(--brand-navy);
 }
 
 button.bg-brand-navy:hover {
 	background-color: var(--brand-teal-dark);
+}
+
+/* ================================
+   FLOATING ARROWS – MENU EDITOR
+   ================================ */
+
+.scroll-arrow {
+	position: fixed;
+	right: 20px;
+	width: 52px;
+	height: 52px;
+	padding: 6px;
+	background: rgba(255, 255, 255, 0.9);
+	border-radius: 12px;
+	box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+	cursor: pointer;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	z-index: 999;
+	transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.scroll-arrow:hover {
+	transform: scale(1.08);
+	background: rgba(255, 255, 255, 1);
+}
+
+.arrow-icon {
+	width: 40px;
+	height: 40px;
+	display: block;
+}
+
+/* Positions */
+#scrollUp {
+	bottom: 100px;
+}
+
+#scrollDown {
+	bottom: 30px;
 }

@@ -1,27 +1,27 @@
 // assets/js/dashboard.js
 
-// --- Envía un evento personalizado para filtrar el menú según una etiqueta (tag) ---
+// --- Sends a custom event to filter the menu based on a tag ---
 function sendMenuFilter(tag) {
-	// Dispara un evento global que otros componentes pueden escuchar
+	// Dispatches a global event that other components can listen to
 	window.dispatchEvent(new CustomEvent('menu:filter', { detail: tag }));
 
-	// --- Retroalimentación visual rápida (muestra una píldora con el nombre del filtro) ---
+	// --- Quick visual feedback (displays a pill with the filter name) ---
 	const pill = document.getElementById('menuFilterPill');
 	const name = document.getElementById('menuFilterName');
 
-	// Si existen los elementos de la interfaz, actualiza el texto y muestra la píldora
+	// If the UI elements exist, update the text and show the pill
 	if (pill && name) {
 		name.textContent = tag;
 		pill.classList.remove('hidden');
 	}
 }
 
-// --- Restaura el estado original del menú (elimina filtros activos) ---
+// --- Restores the original menu state (clears active filters) ---
 function resetMenu() {
-	// Dispara un evento global para reiniciar los filtros del menú
+	// Dispatches a global event to reset the menu filters
 	window.dispatchEvent(new CustomEvent('menu:reset'));
 
-	// Oculta la píldora visual del filtro, si existe
+	// Hides the filter pill, if it exists
 	const pill = document.getElementById('menuFilterPill');
 	if (pill) pill.classList.add('hidden');
 }

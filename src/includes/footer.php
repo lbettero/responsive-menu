@@ -8,8 +8,8 @@
 	<div class="container mx-auto text-center">
 		<!-- Texto informativo del pie -->
 		<p class="text-sm">
-			<span class="font-semibold">Proyecto de Menú Dinámico</span><br>
-			V 2.0.0 <?= $year ?> | Desarrollado por <span class="text-brand-teal font-medium"><a href="https://github.com/lbettero"> Pérez Bettero [lbettero]</a></span>
+			<span class="font-semibold">Proyecto Coterena — Menú Dinámico</span><br>
+			<?= $year ?> | Desarrollado por <span class="text-brand-teal font-medium">Livia Pérez Bettero</span>
 		</p>
 	</div>
 </footer>
