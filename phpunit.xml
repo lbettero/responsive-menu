@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/11.5/phpunit.xsd"
+    bootstrap="vendor/autoload.php"
+    colors="true"
+    testdox="true"
+    stopOnFailure="false"
+    failOnEmptyTestSuite="true"
+>
+    <testsuites>
+        <testsuite name="Coterena Test Suite">
+            <directory>./tests</directory>
+        </testsuite>
+    </testsuites>
+
+    <logging>
+        <testdoxHtml outputFile="public/test-report.html"/>
+        <testdoxText outputFile="public/test-report.txt"/>
+    </logging>
+</phpunit>

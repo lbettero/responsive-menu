@@ -1,0 +1,17 @@
+Dashboard
+ [x] Archivos js existen
+ [x] Dashboard js define funciones
+ [x] Menu js contiene componente alpine
+ [x] Index incluye scripts js
+ [ ] Dashboard js sin errores sintacticos
+
+Menu
+ [x] Menu json existe
+ [x] Menu json valido
+ [x] Get menu data funciona correctamente
+ [x] Menu data archivo inexistente
+ [x] Menu data json invalido
+ [x] Render menu genera html
+ [x] Estructura de items
+ [x] Menu tiene subniveles
+
