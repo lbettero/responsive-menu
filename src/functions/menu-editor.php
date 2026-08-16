@@ -10,7 +10,7 @@ $menuError = $menuData['error'] ?? null;
 $items     = $menuError ? [] : $menuData;
 
 // ---------------------------------------------------------
-// Detect existing global fields from JSON (propagação rígida)
+// Read shared fields from the JSON data.
 // ---------------------------------------------------------
 function collectGlobalFields($items) {
     $standard = ['title','url','tags','children'];
@@ -245,7 +245,7 @@ function renderMenuFields(array $items, array $globalFields, string $namePrefix=
             <?php endforeach; ?>
         </div>
 
-        <!-- ⚠ Instruction message added here -->
+        <!-- Explain when shared fields are applied. -->
         <p class="mt-3 text-xs text-gray-600 italic">
             After adding or removing global fields, <strong>save the menu</strong> so that these fields appear in all items.
         </p>

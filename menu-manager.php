@@ -4,11 +4,11 @@
 
     include __DIR__ . '/src/includes/header.php';
 
-    // Caminho para o editor do menu
+    // Set the menu editor path.
     $menuEditorPath = __DIR__ . '/src/functions/menu-editor.php';
 ?>
 
-<!-- ====================== CONTEÚDO PRINCIPAL ====================== -->
+<!-- Main content -->
 <section id="inicio" class="py-8">
     <div class="container mx-auto max-w-5xl px-4">
         <h1 class="text-2xl font-bold mb-6">Gestor do Menu</h1>

@@ -26,7 +26,7 @@ function castValue($value, $type)
 }
 
 /**
- * Rigid propagation of global fields into all items
+ * Add shared fields to every menu item.
  */
 function applyGlobalFields(array $items, array $schema): array
 {
@@ -51,7 +51,7 @@ function applyGlobalFields(array $items, array $schema): array
             }
         }
 
-        // Apply global fields rigidly
+        // Add shared fields.
         foreach ($schema as $fieldName => $def) {
             $raw = $item[$fieldName] ?? $def['default'];
             $newItem[$fieldName] = castValue($raw, $def['type']);
@@ -119,7 +119,7 @@ if (!isset($_POST['menu'])) {
         $rawMenu  = $_POST['menu'];
         $schema   = buildGlobalFieldSchema();
 
-        // Ensure all items follow the schema (rigid propagation)
+        // Apply the same fields to every item.
         $finalMenu = applyGlobalFields($rawMenu, $schema);
 
         // Ensure directory exists
