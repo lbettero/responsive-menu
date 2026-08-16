@@ -1,5 +1,14 @@
 <?php
-    // Import the main menu functions from the src/functions folder
+    /**
+     * Project: responsive-menu
+     * Description: A responsive multi-level menu built from JSON with PHP and JavaScript.
+     * Version: 4.0.1
+     * Last updated: 2026-08-16
+     * Author: LBETTERO
+     * Repository: https://github.com/lbettero/responsive-menu
+     */
+
+    // Load the menu functions.
     require_once __DIR__ . '/../functions/menu.php';
 ?>
 
@@ -10,36 +19,32 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title><?= htmlspecialchars($page_title ?? 'Responsive Menu') ?></title>
 
-    <!-- ===== Main JavaScript files ===== -->
-
-    <!-- Dynamic menu JS -->
+    <!-- Menu scripts -->
     <script src="/assets/js/menu.js" defer></script>
 
-    <!-- Dashboard JS -->
+    <!-- Dashboard actions -->
     <script src="/assets/js/dashboard.js" defer></script>
 
-    <!-- ===== Styles and frameworks ===== -->
-
-    <!-- Tailwind CSS (style framework) -->
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
 
-    <!-- Alpine.js (reactive interactivity control) -->
+    <!-- Alpine.js -->
     <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
 
-    <!-- Fonts and custom stylesheet -->
+    <!-- Font and project styles -->
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/assets/css/main.css">
 </head>
 
 <body class="font-sans flex flex-col min-h-screen bg-white text-gray-800">
 
-    <!-- ====================== MAIN HEADER ====================== -->
+    <!-- Page header -->
     <header class="sticky top-0 inset-x-0 z-[100000] py-0 backdrop-blur-md shadow-md isolate">
         <div id="divhead" class="w-full text-center">
             <h1 class="text-2xl font-semibold tracking-wide">RESPONSIVE MENU</h1>
         </div>
 
-        <!-- ====================== TOP NAVIGATION ====================== -->
+        <!-- Main navigation -->
         <nav 
             class="text-gray-800 relative isolate overflow-visible"
             x-data="{ 
@@ -53,7 +58,7 @@
         >
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-5">
 
-                <!-- ===== Button to toggle the menu (always visible in the header) ===== -->
+                <!-- Menu toggle -->
                 <div class="flex justify-end items-center mb-2 relative z-[10010]">
                     <button 
                         @click="showMenu = !showMenu" 
@@ -61,7 +66,7 @@
                         aria-controls="topmenu"
                         :aria-expanded="showMenu.toString()"
                     >
-                        <!-- Icons for desktop view -->
+                        <!-- Desktop icons -->
                         <img 
                             x-show="showMenu" 
                             src="/assets/img/hide.png" 
@@ -75,7 +80,7 @@
                             class="hidden md:inline w-4 h-4 align-middle"
                         >
 
-                        <!-- Hamburger icon for mobile view -->
+                        <!-- Mobile menu icon -->
                         <svg 
                             x-show="!showMenu" 
                             xmlns="http://www.w3.org/2000/svg" 
@@ -89,12 +94,12 @@
                             <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
                         </svg>
 
-                        <!-- Button text (dynamic) -->
+                        <!-- Menu toggle label -->
                         <span class="hidden sm:inline align-middle" x-text="showMenu ? 'Hide menu' : 'Show menu'"></span>
                     </button>
                 </div>
 
-                <!-- ===== Floating close button ONLY on mobile when menu is open ===== -->
+                <!-- Mobile close button -->
                 <button
                     x-show="showMenu"
                     class="md:hidden fixed top-3 right-4 z-[10020] p-2 rounded-full border border-gray-300 bg-white/90 shadow"
@@ -107,7 +112,7 @@
                     <span class="sr-only">Close menu</span>
                 </button>
 
-                <!-- ===== Container for the top menu (dynamic with Alpine.js) ===== -->
+                <!-- Menu content -->
                 <div 
                     id="topmenu"
                     x-show="showMenu" 

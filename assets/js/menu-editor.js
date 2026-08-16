@@ -1,11 +1,5 @@
 /**
- * MENU EDITOR – JS MODULE (UPDATED FOR GLOBAL FIELDS)
- * ---------------------------------------------------
- * - Collapse/expand items
- * - Add/remove/move/indent/outdent menu items
- * - Dynamic reindex of name="" attributes
- * - NEW: Add/remove global fields
- * - NEW: Propagation rigid of global fields to all items
+ * Controls the menu editor and its shared fields.
  */
 
 (function () {

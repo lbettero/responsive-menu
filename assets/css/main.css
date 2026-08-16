@@ -85,9 +85,7 @@ button.bg-brand-navy:hover {
 	background-color: var(--brand-teal-dark);
 }
 
-/* ================================
-   FLOATING ARROWS – MENU EDITOR
-   ================================ */
+/* Floating menu editor arrows */
 
 .scroll-arrow {
 	position: fixed;

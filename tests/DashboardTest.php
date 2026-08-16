@@ -2,31 +2,12 @@
 use PHPUnit\Framework\TestCase;
 
 /**
- * ==========================================================
- *  PRUEBAS UNITARIAS — Proyecto Coterena v2.0.0
- * ==========================================================
- * 
- * 🧩 RESUMEN GENERAL:
- * Este conjunto de pruebas valida la correcta integración entre el archivo 
- * JavaScript `dashboard.js`, el menú dinámico (`menu.js`) y el archivo `index.php`.
- * 
- * En concreto:
- * 1. Comprueba que los archivos existen y contienen código.
- * 2. Verifica que las funciones clave (`sendMenuFilter` y `resetMenu`) estén 
- *    definidas correctamente dentro de `dashboard.js`.
- * 3. Garantiza que los eventos personalizados (`menu:filter` y `menu:reset`) 
- *    estén presentes para la comunicación con el menú dinámico.
- * 4. Asegura que el `index.php` incluya los scripts necesarios 
- *    (`menu.js` y `dashboard.js`).
- * 5. (Opcional) Realiza una validación básica de sintaxis usando Node.js.
- * 
- * Estas pruebas garantizan que el sistema de filtrado y reinicio del menú 
- * funcione como se espera y que la integración entre front-end y back-end 
- * se mantenga estable.
- * 
- * @autor Livia Pérez Bettero
- * @colaboración Asistencia técnica: ChatGPT (OpenAI)
- * ----------------------------------------------------------
+ * Tests the dashboard and menu integration.
+ *
+ * The tests cover required files, filter events, script loading,
+ * and basic JavaScript syntax validation.
+ *
+ * @author Livia Pérez Bettero
  */
 class DashboardTest extends TestCase
 {
@@ -35,7 +16,7 @@ class DashboardTest extends TestCase
     private string $indexPath;
 
     /**
-     * Define las rutas base de los archivos que serán probados.
+     * Set the paths used by the tests.
      */
     protected function setUp(): void
     {
@@ -45,7 +26,7 @@ class DashboardTest extends TestCase
     }
 
     /**
-     * Verifica que los archivos JS esenciales existan y no estén vacíos.
+     * Check that the required JavaScript files exist.
      */
     public function testArchivosJsExisten(): void
     {
@@ -57,7 +38,7 @@ class DashboardTest extends TestCase
     }
 
     /**
-     * Verifica que las funciones clave estén definidas en dashboard.js.
+     * Check the dashboard functions and events.
      */
     public function testDashboardJsDefineFunciones(): void
     {
@@ -70,7 +51,7 @@ class DashboardTest extends TestCase
     }
 
     /**
-     * Verifica que el archivo menu.js contenga la definición del componente Alpine.js.
+     * Check that menu.js defines the Alpine component.
      */
     public function testMenuJsContieneComponenteAlpine(): void
     {
@@ -81,14 +62,13 @@ class DashboardTest extends TestCase
     }
 
     /**
-     * Verifica que el proyecto incluya correctamente los scripts del menú y del dashboard.
-     * Los scripts pueden estar en header.php y/o footer.php, según la arquitectura del proyecto.
+     * Check that the page loads the menu and dashboard scripts.
      */
     public function testIndexIncluyeScriptsJs(): void
     {
         $this->assertFileExists($this->indexPath, "❌ El archivo index.php no existe.");
 
-        // Combina el contenido de index.php, header.php y footer.php
+        // Read all files that may load scripts.
         $html = file_get_contents($this->indexPath);
 
         $headerPath = __DIR__ . '/../src/includes/header.php';
@@ -101,14 +81,14 @@ class DashboardTest extends TestCase
             $html .= file_get_contents($footerPath);
         }
 
-        // menu.js debe estar en header.php
+        // menu.js must be loaded by the header.
         $this->assertMatchesRegularExpression(
             '/<script[^>]+menu\.js/i',
             $html,
             "❌ Falta la inclusión de menu.js en header.php."
         );
 
-        // dashboard.js debe estar en footer.php o en index.php
+        // dashboard.js may be loaded by the footer or the page.
         $this->assertMatchesRegularExpression(
             '/<script[^>]+dashboard\.js/i',
             $html,
@@ -118,9 +98,7 @@ class DashboardTest extends TestCase
 
 
     /**
-     * (Opcional) Verifica que dashboard.js no contenga errores sintácticos simples.
-     * 
-     * Si Node.js está disponible en el entorno, ejecuta una comprobación de sintaxis.
+     * Check dashboard.js syntax when Node.js is available.
      */
     public function testDashboardJsSinErroresSintacticos(): void
     {
@@ -128,7 +106,7 @@ class DashboardTest extends TestCase
         $tmp = tempnam(sys_get_temp_dir(), 'jslint_');
         file_put_contents($tmp, $code);
 
-        // Usa Node.js, si está disponible, para validar la sintaxis del archivo JS
+        // Use Node.js when it is available.
         $nodeExists = shell_exec('which node');
         if ($nodeExists) {
             $output = shell_exec("node --check {$tmp} 2>&1");

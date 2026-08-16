@@ -202,7 +202,3 @@ test-report.html
 ✨ Author
 
 Livia Pérez Bettero
-
-🤖 Technical Collaboration
-
-ChatGPT (OpenAI)
