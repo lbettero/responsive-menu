@@ -3,6 +3,76 @@
 
 $menuPath = __DIR__ . '/../../assets/data/menu.json';
 
+const MAX_REQUEST_BYTES = 1048576;
+const MAX_MENU_ITEMS = 2000;
+const MAX_MENU_DEPTH = 3;
+
+function denyRequest(int $status, string $message): void
+{
+    http_response_code($status);
+    header('Content-Type: text/plain; charset=UTF-8');
+    header('Cache-Control: no-store');
+    exit($message);
+}
+
+function requireAuthorizedWriteRequest(): void
+{
+    if (getenv('RESPONSIVE_MENU_ENABLE_EDITOR') !== '1') {
+        denyRequest(403, 'Server-side menu editing is disabled.');
+    }
+    if (($_SERVER['REQUEST_METHOD'] ?? '') !== 'POST') {
+        header('Allow: POST');
+        denyRequest(405, 'POST is required.');
+    }
+
+    $expectedUser = getenv('RESPONSIVE_MENU_ADMIN_USER');
+    $expectedPassword = getenv('RESPONSIVE_MENU_ADMIN_PASSWORD');
+    if (!$expectedUser || !$expectedPassword
+        || !hash_equals($expectedUser, $_SERVER['PHP_AUTH_USER'] ?? '')
+        || !hash_equals($expectedPassword, $_SERVER['PHP_AUTH_PW'] ?? '')) {
+        header('WWW-Authenticate: Basic realm="Responsive Menu Editor"');
+        denyRequest(401, 'Authentication is required.');
+    }
+
+    $requestAuthority = strtolower($_SERVER['HTTP_HOST'] ?? '');
+    $requestScheme = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https' : 'http';
+    $source = $_SERVER['HTTP_ORIGIN'] ?? ($_SERVER['HTTP_REFERER'] ?? '');
+    $sourceHost = strtolower((string) parse_url($source, PHP_URL_HOST));
+    $sourcePort = parse_url($source, PHP_URL_PORT);
+    $sourceScheme = strtolower((string) parse_url($source, PHP_URL_SCHEME));
+    $sourceAuthority = $sourceHost . ($sourcePort ? ':' . $sourcePort : '');
+    if ($requestAuthority === '' || $sourceHost === ''
+        || !hash_equals($requestScheme, $sourceScheme)
+        || !hash_equals($requestAuthority, $sourceAuthority)) {
+        denyRequest(403, 'The request origin is not allowed.');
+    }
+
+    $contentLength = (int) ($_SERVER['CONTENT_LENGTH'] ?? 0);
+    if ($contentLength <= 0 || $contentLength > MAX_REQUEST_BYTES) {
+        denyRequest(413, 'The request body is empty or too large.');
+    }
+}
+
+function validateMenuShape(array $items, int $depth = 1, int &$count = 0): void
+{
+    if ($depth > MAX_MENU_DEPTH) {
+        throw new InvalidArgumentException('The menu exceeds the maximum nesting depth.');
+    }
+    foreach ($items as $item) {
+        if (!is_array($item) || ++$count > MAX_MENU_ITEMS) {
+            throw new InvalidArgumentException('The menu structure is invalid or too large.');
+        }
+        if (isset($item['children'])) {
+            if (!is_array($item['children'])) {
+                throw new InvalidArgumentException('Menu children must be an array.');
+            }
+            validateMenuShape($item['children'], $depth + 1, $count);
+        }
+    }
+}
+
+requireAuthorizedWriteRequest();
+
 /**
  * Converts a value string to the appropriate type according to schema
  */
@@ -111,12 +181,18 @@ $statusMessage = 'Menu saved successfully!';
 $errorDetails  = '';
 
 if (!isset($_POST['menu'])) {
+    http_response_code(400);
     $statusType    = 'error';
     $statusMessage = 'No menu data was sent.';
 } else {
 
     try {
         $rawMenu  = $_POST['menu'];
+        if (!is_array($rawMenu)) {
+            throw new InvalidArgumentException('Menu data must be an array.');
+        }
+        $itemCount = 0;
+        validateMenuShape($rawMenu, 1, $itemCount);
         $schema   = buildGlobalFieldSchema();
 
         // Apply the same fields to every item.
@@ -136,11 +212,18 @@ if (!isset($_POST['menu'])) {
             throw new RuntimeException('Error converting menu to JSON.');
         }
 
-        if (file_put_contents($menuPath, $json) === false) {
+        $temporaryPath = tempnam($dir, 'menu-');
+        if ($temporaryPath === false
+            || file_put_contents($temporaryPath, $json, LOCK_EX) === false
+            || !rename($temporaryPath, $menuPath)) {
+            if ($temporaryPath && is_file($temporaryPath)) {
+                unlink($temporaryPath);
+            }
             throw new RuntimeException('Failed to write to menu.json.');
         }
 
     } catch (Throwable $e) {
+        http_response_code(422);
         $statusType    = 'error';
         $statusMessage = 'An error occurred while saving the menu.';
         $errorDetails  = $e->getMessage();

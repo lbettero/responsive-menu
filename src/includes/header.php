@@ -2,8 +2,8 @@
     /**
      * Project: responsive-menu
      * Description: A responsive multi-level menu built from JSON with PHP and JavaScript.
-     * Version: 4.0.1
-     * Last updated: 2026-08-16
+     * Version: 4.0.2
+     * Last updated: 2026-10-29
      * Author: LBETTERO
      * Repository: https://github.com/lbettero/responsive-menu
      */
@@ -25,11 +25,11 @@
     <!-- Dashboard actions -->
     <script src="/assets/js/dashboard.js" defer></script>
 
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Compiled Tailwind CSS 3.4.19 -->
+    <link rel="stylesheet" href="/assets/css/tailwind.css?v=3.4.19">
 
-    <!-- Alpine.js -->
-    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+    <!-- Locally hosted Alpine.js 3.17.5 -->
+    <script src="/assets/vendor/alpinejs-3.17.5.min.js" defer></script>
 
     <!-- Font and project styles -->
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
