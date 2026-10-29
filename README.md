@@ -1,4 +1,4 @@
-🧩 SMART SMALL THINGS — Dynamic Responsive Menu (v4.0.0)
+🧩 SMART SMALL THINGS — Dynamic Responsive Menu (v4.0.2)
 
 https://github.com/lbettero/responsive-menu
 
@@ -22,6 +22,7 @@ v1.0.1	Nov 8,  2025	Initial stable version, dynamic JSON-based menu.
 v2.0.0	Nov 11, 2025	Refactor, Alpine.js compatibility, improved z-index structure.
 v3.0.0	Nov 16, 2025	Full menu editor, redesigned UI, search engine v2, JSON download, PHP architecture cleanup.
 v4.0.0	Nov 17, 2025	Global Fields with rigid propagation, advanced metadata system, field types, defaults, full JSON schema enforcement.
+v4.0.2	Oct 29, 2026	Security hardening, protected server-side editing, and locally built pinned frontend assets.
 ⭐ What’s New in Version 4.0.0 (Major Update)
 1. Global Fields System
 
@@ -182,6 +183,25 @@ RESPONSIVEMENU/
 └── README.md
 
 🚀 Running the Project
+Build the pinned local frontend assets first:
+
+```bash
+npm ci
+npm run build
+```
+
+The generated Tailwind CSS and Alpine.js runtime are committed so production does not depend on a third-party script CDN. Rebuild them whenever the pinned versions or template classes change.
+
+The server-side menu editor is disabled by default. A trusted deployment that needs it must define:
+
+```text
+RESPONSIVE_MENU_ENABLE_EDITOR=1
+RESPONSIVE_MENU_ADMIN_USER=<admin user>
+RESPONSIVE_MENU_ADMIN_PASSWORD=<strong unique password>
+```
+
+Use the editor only over HTTPS and with additional deployment access controls. It accepts authenticated same-origin POST requests up to 1 MB.
+
 php -S localhost:8000
 
 

@@ -1,0 +1,6 @@
+node_modules/
+npm-debug.log*
+vendor/
+.phpunit.result.cache
+/public/test-report.html
+/public/test-report.txt
